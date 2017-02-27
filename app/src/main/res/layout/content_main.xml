@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.cyq7on.swellview.SwellView
+        android:id="@+id/swellView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:cv_titleText=""
+        app:cv_subtitleText=""
+        app:cv_titleSize="20sp"
+        app:cv_subtitleSize="10sp"
+        app:cv_titleColor="@android:color/white"
+        app:cv_subtitleColor="@android:color/white"
+        app:cv_strokeColorValue="@color/blue"
+        app:cv_backgroundColorValue="@color/blue"
+        app:cv_fillColor="@color/blue"
+        app:cv_fillRadius="0.9"
+        app:cv_strokeWidthSize="5"/>
+</RelativeLayout>
