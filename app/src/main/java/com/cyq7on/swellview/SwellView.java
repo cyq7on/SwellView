@@ -8,8 +8,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 
@@ -89,25 +89,25 @@ public class SwellView extends View {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, com.github.pavlospt.R.styleable.CircleView, defStyle, 0);
 
-        if(a.hasValue(com.github.pavlospt.R.styleable.CircleView_cv_titleText)){
+        if (a.hasValue(com.github.pavlospt.R.styleable.CircleView_cv_titleText)) {
             mTitleText = a.getString(com.github.pavlospt.R.styleable.CircleView_cv_titleText);
         }
 
-        if(a.hasValue(com.github.pavlospt.R.styleable.CircleView_cv_subtitleText)){
+        if (a.hasValue(com.github.pavlospt.R.styleable.CircleView_cv_subtitleText)) {
             mSubtitleText = a.getString(com.github.pavlospt.R.styleable.CircleView_cv_subtitleText);
         }
 
-        mTitleColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_titleColor,DEFAULT_TITLE_COLOR);
-        mSubtitleColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_subtitleColor,DEFAULT_SUBTITLE_COLOR);
-        mBackgroundColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_backgroundColorValue,DEFAULT_BACKGROUND_COLOR);
-        mStrokeColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_strokeColorValue,DEFAULT_STROKE_COLOR);
-        mFillColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_fillColor,DEFAULT_FILL_COLOR);
+        mTitleColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_titleColor, DEFAULT_TITLE_COLOR);
+        mSubtitleColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_subtitleColor, DEFAULT_SUBTITLE_COLOR);
+        mBackgroundColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_backgroundColorValue, DEFAULT_BACKGROUND_COLOR);
+        mStrokeColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_strokeColorValue, DEFAULT_STROKE_COLOR);
+        mFillColor = a.getColor(com.github.pavlospt.R.styleable.CircleView_cv_fillColor, DEFAULT_FILL_COLOR);
 
-        mTitleSize = a.getDimension(com.github.pavlospt.R.styleable.CircleView_cv_titleSize,DEFAULT_TITLE_SIZE);
-        mSubtitleSize = a.getDimension(com.github.pavlospt.R.styleable.CircleView_cv_subtitleSize,DEFAULT_SUBTITLE_SIZE);
+        mTitleSize = a.getDimension(com.github.pavlospt.R.styleable.CircleView_cv_titleSize, DEFAULT_TITLE_SIZE);
+        mSubtitleSize = a.getDimension(com.github.pavlospt.R.styleable.CircleView_cv_subtitleSize, DEFAULT_SUBTITLE_SIZE);
 
-        mStrokeWidth = a.getFloat(com.github.pavlospt.R.styleable.CircleView_cv_strokeWidthSize,DEFAULT_STROKE_WIDTH);
-        mFillRadius = a.getFloat(com.github.pavlospt.R.styleable.CircleView_cv_fillRadius,DEFAULT_FILL_RADIUS);
+        mStrokeWidth = a.getFloat(com.github.pavlospt.R.styleable.CircleView_cv_strokeWidthSize, DEFAULT_STROKE_WIDTH);
+        mFillRadius = a.getFloat(com.github.pavlospt.R.styleable.CircleView_cv_fillRadius, DEFAULT_FILL_RADIUS);
 
         mTitleSubtitleSpace = a.getFloat(com.github.pavlospt.R.styleable.CircleView_cv_titleSubtitleSpace, DEFAULT_TITLE_SUBTITLE_SPACE);
 
@@ -154,7 +154,7 @@ public class SwellView extends View {
 
     }
 
-    private void invalidateTextPaints(){
+    private void invalidateTextPaints() {
         mTitleTextPaint.setColor(mTitleColor);
         mSubTextPaint.setColor(mSubtitleColor);
         mTitleTextPaint.setTextSize(mTitleSize);
@@ -162,7 +162,7 @@ public class SwellView extends View {
         invalidate();
     }
 
-    private void invalidatePaints(){
+    private void invalidatePaints() {
         mBackgroundPaint.setColor(mBackgroundColor);
         mStrokePaint.setColor(mStrokeColor);
         mFillPaint.setColor(mFillColor);
@@ -175,7 +175,7 @@ public class SwellView extends View {
 
         int width = resolveSize(DEFAULT_VIEW_SIZE, widthMeasureSpec);
         int height = resolveSize(DEFAULT_VIEW_SIZE, heightMeasureSpec);
-        mViewSize = Math.min(width, height);
+        mViewSize = Math.min(width, height) / 2;
 
         setMeasuredDimension(width, height);
     }
@@ -218,28 +218,36 @@ public class SwellView extends View {
                     mSubTextPaint);
         }
 
+        if (TextUtils.isEmpty(getTitleText())) {
+            return;
+        }
+        drawSmallCircle(canvas);
+
     }
 
     /**
      * Sets whether the view's title string will be shown.
+     *
      * @param flag The boolean value.
      */
-    public void setShowTitle(boolean flag){
+    public void setShowTitle(boolean flag) {
         this.mShowTitle = flag;
         invalidate();
     }
 
     /**
      * Sets whether the view's subtitle string will be shown.
+     *
      * @param flag The boolean value.
      */
-    public void setShowSubtitle(boolean flag){
+    public void setShowSubtitle(boolean flag) {
         this.mShowSubtitle = flag;
         invalidate();
     }
 
     /**
      * Gets the title string attribute value.
+     *
      * @return The title string attribute value.
      */
     public String getTitleText() {
@@ -248,6 +256,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's title string attribute value.
+     *
      * @param title The example string attribute value to use.
      */
     public void setTitleText(String title) {
@@ -257,6 +266,7 @@ public class SwellView extends View {
 
     /**
      * Gets the subtitle string attribute value.
+     *
      * @return The subtitle string attribute value.
      */
     public String getSubtitleText() {
@@ -265,6 +275,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's subtitle string attribute value.
+     *
      * @param subtitle The example string attribute value to use.
      */
     public void setSubtitleText(String subtitle) {
@@ -274,6 +285,7 @@ public class SwellView extends View {
 
     /**
      * Gets the stroke color attribute value.
+     *
      * @return The stroke color attribute value.
      */
     public int getStrokeColor() {
@@ -282,6 +294,7 @@ public class SwellView extends View {
 
     /**
      * Gets the background color attribute value.
+     *
      * @return The background color attribute value.
      */
     public int getBackgroundColor() {
@@ -290,6 +303,7 @@ public class SwellView extends View {
 
     /**
      * Gets the fill color attribute value.
+     *
      * @return The fill color attribute value.
      */
     public int getFillColor() {
@@ -298,6 +312,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's stroke color attribute value.
+     *
      * @param strokeColor The stroke color attribute value to use.
      */
     public void setStrokeColor(int strokeColor) {
@@ -307,6 +322,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's background color attribute value.
+     *
      * @param backgroundColor The background color attribute value to use.
      */
     public void setBackgroundColor(int backgroundColor) {
@@ -316,6 +332,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's fill color attribute value.
+     *
      * @param fillColor The fill color attribute value to use.
      */
     public void setFillColor(int fillColor) {
@@ -325,6 +342,7 @@ public class SwellView extends View {
 
     /**
      * Gets the stroke width dimension attribute value.
+     *
      * @return The stroke width dimension attribute value.
      */
     public float getStrokeWidth() {
@@ -333,6 +351,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's stroke width attribute value.
+     *
      * @param strokeWidth The stroke width attribute value to use.
      */
     public void setBackgroundColor(float strokeWidth) {
@@ -342,6 +361,7 @@ public class SwellView extends View {
 
     /**
      * Gets the fill radius dimension attribute value.
+     *
      * @return The fill radius dimension attribute value.
      */
     public float getFillRadius() {
@@ -350,6 +370,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's fill radius attribute value.
+     *
      * @param fillRadius The fill radius attribute value to use.
      */
     public void setFillRadius(float fillRadius) {
@@ -359,6 +380,7 @@ public class SwellView extends View {
 
     /**
      * Gets the title size dimension attribute value.
+     *
      * @return The title size dimension attribute value.
      */
     public float getTitleSize() {
@@ -367,6 +389,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's title size dimension attribute value.
+     *
      * @param titleSize The title size dimension attribute value to use.
      */
     public void setTitleSize(float titleSize) {
@@ -376,6 +399,7 @@ public class SwellView extends View {
 
     /**
      * Gets the subtitle size dimension attribute value.
+     *
      * @return The subtitle size dimension attribute value.
      */
     public float getSubtitleSize() {
@@ -384,6 +408,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's subtitle size dimension attribute value.
+     *
      * @param subtitleSize The subtitle size dimension attribute value to use.
      */
     public void setSubtitleSize(float subtitleSize) {
@@ -393,6 +418,7 @@ public class SwellView extends View {
 
     /**
      * Gets the title text color attribute value.
+     *
      * @return The text color attribute value.
      */
     public int getTitleColor() {
@@ -401,15 +427,17 @@ public class SwellView extends View {
 
     /**
      * Sets the view's title text color attribute value.
+     *
      * @param titleColor The title text color attribute value to use.
      */
     public void setTitleColor(int titleColor) {
-        mTitleColor =titleColor;
+        mTitleColor = titleColor;
         invalidateTextPaints();
     }
 
     /**
      * Gets the subtitle text color attribute value.
+     *
      * @return The text color attribute value.
      */
     public int getSubtitleColor() {
@@ -418,6 +446,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's subtitle text color attribute value.
+     *
      * @param subtitleColor The subtitle text color attribute value to use.
      */
     public void setSubtitleColor(int subtitleColor) {
@@ -427,6 +456,7 @@ public class SwellView extends View {
 
     /**
      * Gets the title subtitle space attribute value.
+     *
      * @return The title subtitle space attribute value.
      */
     public float getTitleSubtitleSpace() {
@@ -435,6 +465,7 @@ public class SwellView extends View {
 
     /**
      * Sets the view's title subtitle space attribute value.
+     *
      * @param titleSubtitleSpace The space between title and subtitle attribute value to use.
      */
     public void setTitleSubtitleSpace(float titleSubtitleSpace) {
@@ -442,14 +473,25 @@ public class SwellView extends View {
         invalidateTextPaints();
     }
 
-    public void swell(float scaleXBy,float scaleYBy,int duraTime) {
+    public void swell(float scaleXBy, float scaleYBy, int duraTime) {
         this.animate().scaleXBy(scaleXBy).scaleYBy(scaleYBy).setDuration(duraTime);
-        Log.d("test",this.getHeight() + "");
+    }
+
+    public void drawSmallCircle(Canvas canvas) {
+//        canvas.save();
+//        canvas.translate(getHeight() / 2,getHeight() / 2);
+        float radius = (float) (getHeight() * Math.random()) / 2;
+        float height = getHeight() / 2;
+        /*canvas.drawCircle(0, 0, 10, mFillPaint);
+        canvas.drawCircle(0, height, 10, mFillPaint);
+        canvas.drawCircle(height, 0, 10, mFillPaint);*/
+        canvas.drawCircle(height, height, 10, mFillPaint);
+//        canvas.restore();
     }
 
     public void reset() {
         setTitleText("");
         setSubtitleText("");
-//        this.animate().scaleX(200).scaleY(200).setDuration(10);
+        this.animate().scaleX(1.0f).scaleY(1.0f);
     }
 }
