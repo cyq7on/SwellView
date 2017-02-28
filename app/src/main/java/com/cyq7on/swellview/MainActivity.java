@@ -1,9 +1,7 @@
 package com.cyq7on.swellview;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements Runnable {
@@ -15,8 +13,8 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.content_main);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                 percent = 0;
                 swellView.reset();
             }
-        });
+        });*/
 
         swellView = (SwellView) findViewById(R.id.swellView);
         swellView.setOnClickListener(new View.OnClickListener() {

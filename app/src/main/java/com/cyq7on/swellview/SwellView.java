@@ -193,16 +193,12 @@ public class SwellView extends View {
         float centerX = mInnerRectF.centerX();
         float centerY = mInnerRectF.centerY();
 
-//        canvas.drawArc(mInnerRectF, 0, 360, true, mBackgroundPaint);
-
         float radius = (mViewSize / 2) * mFillRadius;
 
-        canvas.drawCircle(centerX, centerY, radius + 0.5f - mStrokePaint.getStrokeWidth(), mFillPaint);
+//        canvas.drawCircle(centerX, centerY, radius + 0.5f - mStrokePaint.getStrokeWidth(), mFillPaint);
 
         int xPos = (int) centerX;
         int yPos = (int) (centerY - (mTitleTextPaint.descent() + mTitleTextPaint.ascent()) / 2);
-
-//        canvas.drawOval(mInnerRectF, mStrokePaint);
 
         if (mShowTitle) {
             canvas.drawText(mTitleText,
@@ -219,7 +215,7 @@ public class SwellView extends View {
         }
 
         if (TextUtils.isEmpty(getTitleText())) {
-            return;
+//            return;
         }
         drawSmallCircle(canvas);
 
@@ -478,20 +474,41 @@ public class SwellView extends View {
     }
 
     public void drawSmallCircle(Canvas canvas) {
-//        canvas.save();
-//        canvas.translate(getHeight() / 2,getHeight() / 2);
-        float radius = (float) (getHeight() * Math.random()) / 2;
-        float height = getHeight() / 2;
-        /*canvas.drawCircle(0, 0, 10, mFillPaint);
-        canvas.drawCircle(0, height, 10, mFillPaint);
-        canvas.drawCircle(height, 0, 10, mFillPaint);*/
-        canvas.drawCircle(height, height, 10, mFillPaint);
-//        canvas.restore();
+        canvas.save();
+        float dx = getWidth() / 2;
+        float dy = getHeight() / 2;
+        canvas.translate(dx,dy);
+        float radius = 30f;
+        canvas.drawCircle(0, -dy, radius, mFillPaint);
+        canvas.drawCircle(0, dy, radius, mFillPaint);
+        canvas.drawCircle(-dx, 0, radius, mFillPaint);
+        canvas.drawCircle(dx, 0, radius, mFillPaint);
+        canvas.drawCircle(dx, dy, radius, mFillPaint);
+        canvas.drawCircle(-dx, -dy, radius, mFillPaint);
+        canvas.drawCircle(dx, -dy, radius, mFillPaint);
+        canvas.drawCircle(-dx, dy, radius, mFillPaint);
+        canvas.restore();
     }
 
     public void reset() {
         setTitleText("");
         setSubtitleText("");
         this.animate().scaleX(1.0f).scaleY(1.0f);
+    }
+
+    class CircleView extends View {
+
+        public CircleView(Context context) {
+            super(context);
+        }
+
+        public CircleView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
     }
 }
