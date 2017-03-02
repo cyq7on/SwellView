@@ -195,7 +195,7 @@ public class SwellView extends View {
 
         float radius = (mViewSize / 2) * mFillRadius;
 
-//        canvas.drawCircle(centerX, centerY, radius + 0.5f - mStrokePaint.getStrokeWidth(), mFillPaint);
+        canvas.drawCircle(centerX, centerY, radius + 0.5f - mStrokePaint.getStrokeWidth(), mFillPaint);
 
         int xPos = (int) centerX;
         int yPos = (int) (centerY - (mTitleTextPaint.descent() + mTitleTextPaint.ascent()) / 2);
@@ -475,10 +475,10 @@ public class SwellView extends View {
 
     public void drawSmallCircle(Canvas canvas) {
         canvas.save();
-        float dx = getWidth() / 2;
-        float dy = getHeight() / 2;
+        float dx = getWidth() / 2 / getScaleX();
+        float dy = getHeight() / 2 / getScaleY();
         canvas.translate(dx,dy);
-        float radius = 30f;
+        float radius = (float) (50 * Math.random());
         canvas.drawCircle(0, -dy, radius, mFillPaint);
         canvas.drawCircle(0, dy, radius, mFillPaint);
         canvas.drawCircle(-dx, 0, radius, mFillPaint);
