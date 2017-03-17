@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -475,8 +476,9 @@ public class SwellView extends View {
 
     public void drawSmallCircle(Canvas canvas) {
         canvas.save();
-        float dx = getWidth() / 2 / getScaleX();
-        float dy = getHeight() / 2 / getScaleY();
+        float dx = getWidth() / 2;
+        float dy = getHeight() / 2;
+        Log.d("test",dx+"\n"+dy);
         canvas.translate(dx,dy);
         float radius = (float) (50 * Math.random());
         canvas.drawCircle(0, -dy, radius, mFillPaint);
